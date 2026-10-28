@@ -1,53 +1,57 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#172536">
-  <meta name="description" content="ATLAS NATIONS — simulation de gouvernance, finances publiques, législation, diplomatie et défense.">
-  <title>ATLAS NATIONS — Simulation gouvernementale</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1220"><meta name="description" content="ATLAS NATIONS — simulation présidentielle et gestion de l'État.">
+  <title>ATLAS NATIONS — Simulation présidentielle</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar" id="sidebar">
-      <div class="brand"><div class="brand-mark">AN</div><div><div class="brand-name">ATLAS <span>NATIONS</span></div><div class="brand-sub">CABINET DE GOUVERNANCE</div></div></div>
-      <div class="country-card"><div class="country-flag" id="countryFlag">🇫🇷</div><div class="country-meta"><strong id="countryName">République française</strong><small id="countrySubtitle">Mandat présidentiel · 2026</small></div><button class="icon-button" title="Changer de pays" data-action="open-country">⌄</button></div>
-      <div class="nav-label">PILOTAGE</div>
-      <nav class="main-nav" aria-label="Navigation principale">
-        <button class="nav-item active" data-page="overview"><span class="nav-icon">▦</span> Tableau de bord</button>
-        <button class="nav-item" data-page="society"><span class="nav-icon">◎</span> Pays & société</button>
-        <button class="nav-item" data-page="finance"><span class="nav-icon">▤</span> Finances publiques</button>
-        <button class="nav-item" data-page="taxes"><span class="nav-icon">％</span> Fiscalité</button>
-        <button class="nav-item" data-page="bills"><span class="nav-icon">§</span> Projets de loi <span class="nav-count" id="billCount">0</span></button>
-        <button class="nav-item" data-page="parliament"><span class="nav-icon">▥</span> Parlement</button>
-        <button class="nav-item" data-page="elections"><span class="nav-icon">◉</span> Élections & opinion</button>
-        <div class="nav-label nav-label-spaced">AFFAIRES DE L'ÉTAT</div>
-        <button class="nav-item" data-page="projects"><span class="nav-icon">⌂</span> Grands projets</button>
-        <button class="nav-item" data-page="procurement"><span class="nav-icon">▣</span> Achats & marchés</button>
-        <button class="nav-item" data-page="cabinet"><span class="nav-icon">♙</span> Gouvernement</button>
-        <button class="nav-item" data-page="defense"><span class="nav-icon">⌖</span> Défense & carte</button>
-        <button class="nav-item" data-page="diplomacy"><span class="nav-icon">⇄</span> Diplomatie & commerce</button>
-        <button class="nav-item" data-page="events"><span class="nav-icon">◷</span> Journal national</button>
-      </nav>
-      <div class="sidebar-bottom">
-        <div class="save-status"><span class="status-dot"></span><div><strong>Campagne sauvegardée</strong><small id="saveStatus">Stockage local actif</small></div></div>
-        <button class="nav-item" data-page="save"><span class="nav-icon">⚙</span> Sauvegarde & options</button>
-        <div class="sidebar-footer">ATLAS NATIONS <span>v3.0.0</span><br><small>Simulation stratégique indépendante</small></div>
-      </div>
-    </aside>
-    <main class="main-area">
-      <header class="topbar">
-        <div class="topbar-left"><button class="mobile-menu icon-button" data-action="toggle-sidebar" aria-label="Menu">☰</button><div><div class="eyebrow" id="sectionEyebrow">PRÉSIDENCE · SITUATION NATIONALE</div><h1 id="pageTitle">Tableau de bord</h1></div></div>
-        <div class="topbar-actions"><div class="date-chip"><span class="live-dot"></span><div><small>DATE DE SIMULATION</small><strong id="simDate">1 janvier 2026</strong></div></div><button class="button button-secondary" data-action="advance-month" title="Faire avancer le temps">Avancer d'un mois <span>›</span></button><button class="button button-primary" data-action="advance-day">+ 1 jour</button><button class="icon-button" data-action="open-alerts" title="Notifications">♧<span class="icon-dot" id="alertDot"></span></button></div>
-      </header>
-      <div id="toastRegion" class="toast-region" aria-live="polite"></div>
-      <section id="pageContent" class="page-content" aria-live="polite"></section>
-      <footer class="app-footer"><span>ATLAS NATIONS — simulation de gouvernance</span><span>Données de jeu simulées · Les cartes utilisent OpenStreetMap</span></footer>
-    </main>
+<div class="setup-screen" id="setupScreen">
+  <div class="setup-wrap">
+    <header class="setup-brand"><div class="brand-mark">AN</div><div><b>ATLAS NATIONS</b><span>SIMULATION PRÉSIDENTIELLE</span></div></header>
+    <div class="setup-grid">
+      <section class="setup-intro"><div class="eyebrow">CABINET DE GOUVERNANCE · ÉDITION STRATÉGIQUE</div><h1>Diriger un pays.<br><span>Assumer chaque décision.</span></h1><p>Gérez l'État au quotidien : finances publiques, fiscalité, lois, Parlement, services publics, commerce, diplomatie et défense. Les décisions ont des conséquences dans le temps.</p><div class="setup-proof"><div><b>01</b><span>Décisions modifiables</span></div><div><b>02</b><span>Temps et économie simulés</span></div><div><b>03</b><span>Sauvegarde de campagne</span></div></div></section>
+      <section class="setup-card"><h2>Nouvelle présidence</h2><p class="muted">Personnalisez votre mandat avant de commencer.</p>
+        <div class="form-grid"><label>Prénom<input id="leaderFirst" value="Alexandre" maxlength="40"></label><label>Nom<input id="leaderLast" value="Moreau" maxlength="40"></label>
+        <label>Fonction<select id="leaderTitle"><option>Président</option><option>Présidente</option><option>Premier ministre</option><option>Chancelier</option></select></label><label>Difficulté<select id="difficulty"><option value="normal">Équilibrée</option><option value="easy">Accessible</option><option value="hard">Crise nationale</option></select></label>
+        <label class="span-2">Pays<select id="countrySelect"></select></label><label class="span-2">Parti / coalition<input id="partyInput" value="Union nationale" maxlength="60"></label>
+        <label class="span-2">Contexte de départ<select id="scenarioSelect"><option value="normal">Mandat contemporain</option><option value="recovery">Récession et déficit</option><option value="tension">Tensions internationales</option><option value="reform">Mandat de réformes</option></select></label></div>
+        <div class="country-preview"><span id="previewFlag">🇫🇷</span><div><b id="previewCountry">France</b><small id="previewMeta">Europe · République</small></div><div class="preview-right"><small>PIB INITIAL</small><b id="previewGDP">2 900 Md €</b></div></div>
+        <button class="button primary full" id="startGame">Former le gouvernement <span>→</span></button>
+        <div class="microcopy">Univers de jeu fictif et données économiques simulées. La carte utilise OpenStreetMap.</div>
+      </section>
+    </div>
   </div>
-  <div id="modalHost"></div>
-  <script src="app.js"></script>
-</body>
-</html>
+</div>
+<div class="app hidden" id="gameApp">
+  <aside class="sidebar" id="sidebar"><div class="side-brand"><div class="brand-mark">AN</div><div><b>ATLAS NATIONS</b><small>Secrétariat général</small></div></div>
+    <div class="side-country"><span id="sideFlag">🇫🇷</span><div><b id="sideCountry">France</b><small id="sideLeader">Présidence · 2026</small></div><button class="icon-btn" id="changeCountry" title="Paramètres de campagne">•••</button></div>
+    <div class="nav-section">PRÉSIDENCE</div><nav id="mainNav">
+      <button class="nav-item active" data-page="overview"><span>▦</span> Tableau de bord</button>
+      <button class="nav-item" data-page="society"><span>◎</span> Pays & société</button>
+      <button class="nav-item" data-page="finance"><span>▤</span> Finances publiques</button>
+      <button class="nav-item" data-page="taxes"><span>％</span> Fiscalité & recettes</button>
+      <button class="nav-item" data-page="laws"><span>§</span> Projets de loi <em id="lawBadge">0</em></button>
+      <button class="nav-item" data-page="parliament"><span>▥</span> Parlement</button>
+      <button class="nav-item" data-page="elections"><span>◉</span> Élections & opinion</button>
+      <div class="nav-section nav-gap">ADMINISTRATION DE L'ÉTAT</div>
+      <button class="nav-item" data-page="cabinet"><span>♙</span> Gouvernement</button>
+      <button class="nav-item" data-page="projects"><span>⌂</span> Grands projets</button>
+      <button class="nav-item" data-page="procurement"><span>▣</span> Achats & marchés</button>
+      <button class="nav-item" data-page="defense"><span>⌖</span> Carte & défense</button>
+      <button class="nav-item" data-page="diplomacy"><span>⇄</span> Diplomatie & commerce</button>
+      <button class="nav-item" data-page="journal"><span>◷</span> Journal national</button>
+      <div class="nav-section nav-gap">DONNÉES</div><button class="nav-item" data-page="saves"><span>⚙</span> Sauvegardes & options</button>
+    </nav>
+    <div class="side-bottom"><div class="save-indicator"><i></i><div><b id="saveIndicator">Partie active</b><small id="saveMessage">Stockage local disponible</small></div></div><small class="version">ATLAS NATIONS · V4</small></div>
+  </aside>
+  <main class="main"><header class="topbar"><div class="topbar-heading"><button id="mobileMenu" class="icon-btn mobile-only">☰</button><div><div class="eyebrow" id="pageEyebrow">PRÉSIDENCE · SITUATION NATIONALE</div><h1 id="pageTitle">Tableau de bord</h1></div></div><div class="top-actions"><div class="date-box"><small>DATE DE SIMULATION</small><b id="simDate">1 janvier 2026</b></div><button class="button secondary" id="advanceMonth">Fin du mois <span>›</span></button><button class="button primary" id="advanceDay">+ 1 jour</button></div></header>
+    <div class="toast-region" id="toastRegion" aria-live="polite"></div><section class="content" id="pageContent"></section><footer class="app-footer"><span>ATLAS NATIONS · Simulation de gestion de l'État</span><span>Données simulées · Aucun flux politique en temps réel</span></footer>
+  </main>
+</div>
+<div id="modalHost"></div><div id="toast" class="toast hidden" role="status"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script><script src="app.js"></script>
+</body></html>

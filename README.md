@@ -1,81 +1,37 @@
-# ATLAS NATIONS — Simulation gouvernementale
+# ATLAS NATIONS V4
 
-**Version 3.0.0 · Application web statique · Langue : français**
+Simulation de gestion présidentielle en français, pensée pour une publication GitHub Pages. L'interface utilise un style institutionnel sombre, sans images générées ; les données politiques et économiques sont simulées pour le jeu.
 
-ATLAS NATIONS est un jeu de stratégie et de gestion de l'État centré sur la présidence, les finances publiques, la procédure législative, les élections, la diplomatie, les investissements et une carte interactive des unités de simulation.
+## Fichiers
 
-## Fonctionnalités incluses
+- `index.html` : structure de l'application et chargement des dépendances.
+- `styles.css` : interface responsive.
+- `app.js` : logique du jeu, simulation, actions et sauvegardes.
+- `assets/favicon.svg` : icône.
+- `.nojekyll` : publication GitHub Pages.
 
-- Tableau de bord : PIB simulé, recettes, dépenses, solde, dette, trésorerie, popularité et stabilité.
-- Pays jouables : France, Allemagne, États-Unis, Canada, Japon et Brésil.
-- Finances : budget détaillé par ministère, modification des crédits, emprunts souverains, charge d'intérêt, remboursements, journal du Trésor et export CSV.
-- Fiscalité : modification de l'impôt sur le revenu, de l'impôt sur les sociétés, de la TVA et des accises, avec recalcul des recettes.
-- Lois : rédaction, modification, dépôt, première lecture, seconde lecture, promulgation et prise en compte de coûts/recettes annuels.
-- Parlement : groupes, sièges modifiables, seuil de majorité et vote de confiance.
-- Élections : sondages, campagne, actions de campagne, budget de campagne et simulation d'un scrutin.
-- Gouvernement : nomination, modification et révocation des ministres.
-- Grands projets : création, budgets, échéances simulées, progression, suspension et reprise.
-- Achats & marchés : catalogue d’approvisionnement, fournisseurs, commandes, coûts, délais de livraison, stock, annulation et export des commandes.
-- Diplomatie et commerce : relations bilatérales, accords en négociation, signature, droits de douane et exportations/importations simulées.
-- Défense : unités personnalisables sur carte, effectifs, disponibilité, destination, lignes de déplacement et suivi à l'avancement des jours.
-- Société : indicateurs nationaux modifiables et effets de simulation.
-- Sauvegarde locale, import/export JSON et exports CSV.
+## Déploiement sur GitHub Pages
 
-## Lancer en local
+1. Décompressez l'archive.
+2. Dans le dépôt GitHub du jeu, remplacez `index.html`, `styles.css`, `app.js`, `.nojekyll` et le dossier `assets/` par ceux de cette archive.
+3. Dans **Settings → Pages**, choisissez la branche `main` et le dossier `/ (root)`.
+4. Attendez que le déploiement Pages soit terminé, puis rechargez le site. Sur iPhone, fermez l'onglet puis rouvrez le site si l'ancienne version reste en cache.
 
-1. Décompressez le dossier.
-2. Ouvrez `index.html` avec un navigateur récent.
-3. Pour une expérience plus fiable, utilisez un serveur local dans ce dossier :
+## Fonctions incluses
 
-   ```bash
-   python -m http.server 8000
-   ```
+- Création de partie avec pays, dirigeant, parti, difficulté et scénario.
+- Tableau de bord avec PIB, solde budgétaire, dette, trésorerie, popularité et indicateurs sociaux.
+- Budget ministériel modifiable, fiscalité configurable, emprunts et remboursement anticipé.
+- Rédaction, dépôt, inscription au vote, vote et promulgation de projets de loi.
+- Parlement, négociation de coalition, question de confiance et motion de censure simulées.
+- Gestion des ministres, remaniement, projets nationaux avec progression et marchés publics.
+- Diplomatie, actions bilatérales, accords commerciaux et registre des échanges.
+- Carte interactive OpenStreetMap, unités de jeu sélectionnables, ordres de déplacement et progression mensuelle.
+- Journal national, sauvegarde automatique locale, sauvegardes nommées, import/export JSON.
 
-   Ouvrez ensuite `http://localhost:8000`.
+## Notes importantes
 
-La simulation ne nécessite ni compte, ni serveur applicatif, ni clé API, ni étape de compilation.
-
-## Publication sur GitHub Pages
-
-1. Dans votre dépôt GitHub, téléversez **tous** les fichiers du dossier à la racine (`index.html`, `styles.css`, `app.js`, `README.md`, `assets/`).
-2. Faites un commit sur la branche `main`.
-3. Dans **Settings → Pages**, sélectionnez **Deploy from a branch**, branche `main`, dossier `/(root)`, puis enregistrez.
-4. Attendez le déploiement GitHub Pages, ouvrez l'URL publiée puis faites `Ctrl + F5` pour ignorer le cache.
-
-Aucune compilation n'est nécessaire.
-
-## Carte et connexion
-
-La carte interactive utilise **Leaflet** et les tuiles cartographiques d'**OpenStreetMap**. Une connexion Internet est donc nécessaire pour charger les fonds de carte et les fichiers CDN. Le reste de la simulation est local. En mode hors ligne, les données et les autres pages restent disponibles, mais la carte peut ne pas se charger.
-
-## Sauvegarde et confidentialité
-
-La partie est conservée dans le stockage local du navigateur sur l'appareil utilisé. Elle n'est pas synchronisée entre plusieurs appareils. Utilisez **Sauvegarde & options → Télécharger la sauvegarde JSON** pour conserver ou transférer une partie.
-
-## Limites de conception
-
-Les comptes, votes, sondages, événements, relations diplomatiques, coûts, unités et effets macroéconomiques sont des règles de jeu simplifiées. Ils ne constituent pas des données officielles, des prévisions économiques ou un système d'information gouvernemental réel. Les positions et trajectoires sur la carte sont des marqueurs fictifs contrôlés par le joueur ; les mouvements sont abstraits, et ne correspondent pas à des flux opérationnels en direct.
-
-## Arborescence
-
-```text
-atlas-nations/
-├── index.html       # structure de l'application
-├── styles.css       # interface institutionnelle responsive
-├── app.js           # données, règles du jeu, interactions et sauvegarde
-├── README.md        # documentation et déploiement
-├── LICENSE          # licence MIT
-└── assets/
-    └── favicon.svg  # symbole vectoriel conçu pour le jeu
-```
-
-## Modifier le jeu
-
-- Les pays et leurs valeurs initiales se trouvent dans `COUNTRIES` au début de `app.js`.
-- Les budgets initiaux par mission se trouvent dans `MINISTRIES_DEFAULT`.
-- Les unités de départ se trouvent dans `UNIT_TEMPLATES`.
-- Les pages sont rendues par les fonctions `pageOverview()`, `pageFinance()`, `pageTaxes()`, `pageBills()`, `pageParliament()`, `pageElections()`, `pageProcurement()`, `pageDefense()`, etc.
-- Les formulaires sont traités dans le gestionnaire `submit` de `app.js`.
-- L'apparence générale, les couleurs et le responsive sont dans `styles.css`.
-
-Licence : MIT. Consultez `LICENSE`.
+- La simulation fonctionne dans le navigateur, sans serveur ni compte. Les sauvegardes automatiques sont propres à l'appareil et au navigateur ; exportez un JSON pour transférer une campagne.
+- La carte utilise Leaflet et les tuiles OpenStreetMap via Internet. Sans connexion, les modules de gestion continuent de fonctionner, mais la carte peut ne pas se charger.
+- Les pays, indicateurs, relations commerciales, procédures, événements et résultats sont simplifiés et servent uniquement au jeu. Ce n'est pas une source officielle ou en temps réel.
+- Les données de départ et les mécaniques peuvent nécessiter des ajustements d'équilibrage au fil des tests.
