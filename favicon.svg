@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ATLAS NATIONS">
+  <rect x="2" y="2" width="60" height="60" rx="10" fill="#172536"/>
+  <path d="M13 45 25 16h7l12 29h-8l-2-6H23l-2 6zm12-12h7l-3.5-10z" fill="#edf2f6"/>
+  <path d="M42 17h8v28h-8z" fill="#7696b1"/>
+  <path d="M42 17h8v5h-8z" fill="#b6c7d7"/>
+</svg>
